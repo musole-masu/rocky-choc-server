@@ -34,6 +34,7 @@ public class Server implements Runnable {
     public void run() {
         try{
             connectServer(port);
+            System.out.println("Server running on port " + port);
             acceptClientConnection();
         } catch (IOException e){
             e.printStackTrace();
