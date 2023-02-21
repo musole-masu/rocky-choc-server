@@ -50,6 +50,9 @@ public class MainFrame extends JFrame implements ActionListener, ServerResponse 
             server_status_label.setForeground(new Color(185, 21, 51));
         }
 
+        /*
+        efefeknfiuehfoef
+         */
         jPanel1.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         jPanel1.setLayout(new GridLayout(0,1));
 
