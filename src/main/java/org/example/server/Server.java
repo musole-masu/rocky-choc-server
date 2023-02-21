@@ -6,6 +6,7 @@ import java.net.Socket;
 
 public class Server implements Runnable {
 
+    private boolean executing;
     private int port;
     private ServerSocket serverSocket;
     private Socket socket;
@@ -32,19 +33,22 @@ public class Server implements Runnable {
     }
     @Override
     public void run() {
-        try{
-            connectServer(port);
-            System.out.println("Server running on port " + port);
-            acceptClientConnection();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
 
-        serverResponse.promptConnectionEstablished();
-        handleClientStream();
+            try{
+                connectServer(port);
+                System.out.println("Server running on port " + port);
+                acceptClientConnection();
+            } catch (IOException e){
+                System.out.println("Thread was interrupted " + e.getMessage());
+            }
+            serverResponse.promptConnectionEstablished();
+            handleClientStream();
+
     }
 
     private void acceptClientConnection() throws IOException{
         this.socket = serverSocket.accept();
     }
+
+
 }

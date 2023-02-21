@@ -63,20 +63,21 @@ public class MainFrame extends JFrame implements ActionListener, ServerResponse 
         this.add(jPanel1, BorderLayout.CENTER);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        this.setSize(300,300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.pack();
+        //this.pack();
         this.server = server;
-
         server.setServerResponse(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btn_start) startServer();
-        else if (e.getSource() == btn_stop) stopServer();
+        //else if (e.getSource() == btn_stop) stopServer();
     }
 
     public void startServer(){
+
         int port;
         try{
             port = Integer.parseInt(text_port.getText());
@@ -92,12 +93,17 @@ public class MainFrame extends JFrame implements ActionListener, ServerResponse 
 
     }
 
-    public void stopServer(){
-        isServerRunning = false;
-        btn_start.setEnabled(true);
-        server_status_label.setText("Server Down");
-        server_status_label.setForeground(new Color(185, 21, 51));
-    }
+//    public void stopServer(){
+//        try {
+//            this.server = null;
+//            isServerRunning = false;
+//            btn_start.setEnabled(true);
+//            server_status_label.setText("Server Down");
+//            server_status_label.setForeground(new Color(185, 21, 51));
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
     public JLabel getServer_status_label(){
         return server_status_label;
@@ -106,7 +112,7 @@ public class MainFrame extends JFrame implements ActionListener, ServerResponse 
 
     @Override
     public void promptConnectionOpen() {
-        getServer_status_label().setText("Server Running .. \n Waiting for Clients ...");
+        getServer_status_label().setText("Server Running and Waiting for Clients");
         getServer_status_label().setForeground(new Color(59, 192, 115));
 
         isServerRunning = true;
