@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * @author Winner Musole
+ */
 public class Server implements Runnable {
 
-    private boolean executing;
     private int port;
     private ServerSocket serverSocket;
     private Socket socket;
