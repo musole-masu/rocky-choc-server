@@ -148,6 +148,20 @@ public class MainFrame extends JFrame implements ActionListener, ServerResponse 
     @Override
     public void promptMessageReceived() {
     }
+
+    @Override
+    public void showPrivateKey(String k) {
+    }
+
+    @Override
+    public void showDecryptedMessage(String decryptedMessage) {
+
+    }
+
+    @Override
+    public void showEncryptedMessage(String encryptedMessage) {
+
+    }
 }
 
 
