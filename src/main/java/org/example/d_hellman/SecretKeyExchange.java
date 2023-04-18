@@ -44,7 +44,7 @@ public class SecretKeyExchange {
         privateKey = serverPair.getPrivate();
         publicKey = serverPair.getPublic();
 
-        System.out.println("PU"+ encodeBase64(privateKey.getEncoded()));
+        System.out.println("PU: "+ encodeBase64(privateKey.getEncoded()));
 
         System.out.println("G: "+retrieveDHParamFromPB(publicKey).getG());
         System.out.println("L: "+retrieveDHParamFromPB(publicKey).getL());

@@ -4,6 +4,8 @@ package org.example;
 import com.formdev.flatlaf.FlatLightLaf;
 import org.example.server.Server;
 import org.example.ui.MainFrame;
+import org.example.ui.TerminalApplication;
+import org.example.util.LoggingMessage;
 
 import javax.swing.*;
 import java.util.Scanner;
@@ -11,15 +13,13 @@ import java.util.Scanner;
 public class Application {
 
     public static void main(String[] args) {
-        System.out.println("WELCOME TO ROCKY CHOC ! :)");
 
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex){
-            System.err.println("Failed to load UI Flat");
-        }
+        LoggingMessage.printWelcomeText("WELCOME TO ROCKY ROC SERVER!");
+
         Server server = new Server();
-        SwingUtilities.invokeLater(() -> new MainFrame(server));
+        new TerminalApplication(server);
+
+        //SwingUtilities.invokeLater(() -> new MainFrame(server));
 
     }
 }

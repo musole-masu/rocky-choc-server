@@ -49,7 +49,7 @@ public class StreamHandler extends Thread {
         } catch (IOException e){
             e.printStackTrace();
             closeConnection();
-            System.err.println("Shooting Down Server ...".toUpperCase());
+            System.err.println("Down Server ...".toUpperCase());
         }
     }
 
@@ -90,6 +90,7 @@ public class StreamHandler extends Thread {
         } else if(operation == READY){
             System.out.println("Client is ready to receive the key ".toUpperCase());
             sharePublicKey(secretKeyExchange.getPublicKeyEncoded());
+            System.out.println("Server Shared Key with Client".toUpperCase());
         }
     }
 
