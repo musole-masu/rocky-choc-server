@@ -23,6 +23,9 @@ public class LoggingMessage {
     public static final String RED_CIRCLE = "\uD83D\uDD34";
     public static final String GREEN_CIRCLE = "\uD83D\uDFE2";
     public static final String CHEER_BEER = "\uD83C\uDF7B";
+    public static final String ENVELOP = "\u2709";
+    public static final String CLOSED_MAILBOX = "\uD83D\uDCEB";
+    public static final String PACKAGE = "\uD83D\uDCE6";
 
 
     public static void printWelcomeText(String s){
@@ -69,6 +72,14 @@ public class LoggingMessage {
         Thread.sleep(1000);
         System.out.println(ANSI_BLUE+"[--PROGRESS--] "+s.toUpperCase()+ " " + ANSI_RESET + THINKING_FACE + " " + THINKING_FACE);
         Thread.sleep(1000);
+    }
+    public static void printProgress(String msg, String icon){
+        System.out.println("\n"+ msg.toUpperCase());
+        for (int i = 0; i < 31; i++){
+            CipherUtils.wait(50);
+            System.out.print(icon);
+        }
+        System.out.println("\n");
     }
 }
 

@@ -1,13 +1,14 @@
 package org.example.server;
 
 import org.example.d_hellman.SecretKeyExchange;
+import org.example.util.LoggingMessage;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static org.example.util.CipherUtils.decrypt;
-import static org.example.util.CipherUtils.encrypt;
+import static org.example.util.CipherUtils.*;
+import static org.example.util.CipherUtils.PROTOCOL_SEP;
 
 
 /**
@@ -83,6 +84,14 @@ public class Server implements Runnable {
             decryptedMessage = decrypt(encryptedMessage, streamHandler.getSecretKeyExchange().getAESKey());
             serverResponse.showDecryptedMessage(decryptedMessage);
         } catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    public void sendData(String data){
+        try {
+            streamHandler.sendMessage(ENCRYPTED_MESSAGE, PROTOCOL_SEP, data);
+        }  catch (Exception e){
             System.out.println(e);
         }
     }

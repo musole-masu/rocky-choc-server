@@ -56,9 +56,8 @@ public class StreamHandler extends Thread {
     private void receiveMessage(Socket client) throws IOException{
         while (isClientConnected){
             String dataFromClient = in.readUTF();
-            System.out.println("Message from client ".toUpperCase() +client.getRemoteSocketAddress() + " => " + dataFromClient);
+            System.out.println("Message from client ".toUpperCase()+ dataFromClient);
             performOperation(retrieveCommand(dataFromClient), retrieveMessage(dataFromClient));
-
         }
     }
 
@@ -68,7 +67,6 @@ public class StreamHandler extends Thread {
             serverResponse.showMessageReceived(message);
             serverResponse.promptMessageReceived();
 
-            System.out.println("Message Received".toUpperCase());
         } else if (operation == PUBLIC_KEY){
             System.out.println("Receiving public key from client ...".toUpperCase());
 

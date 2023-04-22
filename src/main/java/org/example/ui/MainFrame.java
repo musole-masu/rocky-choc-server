@@ -1,6 +1,5 @@
 package org.example.ui;
 
-import org.example.CryptoInterface;
 import org.example.server.Server;
 import org.example.server.ServerResponse;
 
@@ -104,17 +103,6 @@ public class MainFrame extends JFrame implements ActionListener, ServerResponse 
 
     }
 
-//    public void stopServer(){
-//        try {
-//            this.server = null;
-//            isServerRunning = false;
-//            btn_start.setEnabled(true);
-//            server_status_label.setText("Server Down");
-//            server_status_label.setForeground(new Color(185, 21, 51));
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
 
     public JLabel getServer_status_label(){
         return server_status_label;
