@@ -71,8 +71,15 @@ public class Server implements Runnable {
 
         String encryptedMessage;
         try {
-            encryptedMessage = encrypt(decryptedMessage,streamHandler.getSecretKeyExchange().getAESKey());
-            serverResponse.showEncryptedMessage(encryptedMessage);
+            String firstEl = decryptedMessage.split("@@")[0];
+            if (firstEl.equalsIgnoreCase("query")){
+                encryptedMessage = encrypt(decryptedMessage.split("@@")[1], streamHandler.getSecretKeyExchange().getAESKey());
+                serverResponse.showEncryptedMessage(encryptedMessage);
+            } else {
+                encryptedMessage = encrypt(decryptedMessage,streamHandler.getSecretKeyExchange().getAESKey());
+                serverResponse.showEncryptedMessage(encryptedMessage);
+            }
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

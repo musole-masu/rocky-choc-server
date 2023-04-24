@@ -3,6 +3,7 @@ package org.example.ui;
 import org.example.server.Server;
 import org.example.server.ServerResponse;
 import org.example.server.StreamHandler;
+import org.example.util.HttpRequests;
 import org.example.util.LoggingMessage;
 
 import java.awt.event.ActionEvent;
@@ -60,22 +61,25 @@ public class TerminalApplication implements ActionListener, ServerResponse {
     @Override
     public void showMessageReceived(String m) {
         try {
-            LoggingMessage.printColoredText("Server received: " + m + " from client", LoggingMessage.ANSI_GREEN);
-            Scanner sc = new Scanner(System.in);
-            LoggingMessage.printColoredText("Type Yes to Decrypt Data and No to do nothing: ", LoggingMessage.ANSI_GREEN);
-            String yes1 = sc.nextLine();
-            if (yes1.equalsIgnoreCase("yes")){
-                server.decryptMessage(m);
-            }
-            LoggingMessage.printColoredText("Type Yes to send Data to and No to do nothing: ", LoggingMessage.ANSI_GREEN);
-            String yes2 = sc.nextLine();
-
-            if (yes2.equalsIgnoreCase("yes")){
-                LoggingMessage.printColoredText( "TO SEND DATA TO Client, FILL THE EMPTY SPACE BELOW "+LoggingMessage.CLOSED_MAILBOX+ ":", LoggingMessage.ANSI_GREEN);
-                String toClient = sc.nextLine();
-                LoggingMessage.printProgress("ENCRYPTING DATA ...", LoggingMessage.CLOSED_LOCK_WITH_KEY);
-                server.encryptMessage(toClient);
-            }
+            LoggingMessage.printColoredText("Server received query: " + m + " from client", LoggingMessage.ANSI_GREEN);
+            // decrypting client query before forwarding it to the destination server
+            server.decryptMessage(m);
+//
+//            Scanner sc = new Scanner(System.in);
+//            LoggingMessage.printColoredText("Type Yes to Decrypt Data and No to do nothing: ", LoggingMessage.ANSI_GREEN);
+//            String yes1 = sc.nextLine();
+//            if (yes1.equalsIgnoreCase("yes")){
+//                server.decryptMessage(m);
+//            }
+//            LoggingMessage.printColoredText("Type Yes to send Data to and No to do nothing: ", LoggingMessage.ANSI_GREEN);
+//            String yes2 = sc.nextLine();
+//
+//            if (yes2.equalsIgnoreCase("yes")){
+//                LoggingMessage.printColoredText( "TO SEND DATA TO Client, FILL THE EMPTY SPACE BELOW "+LoggingMessage.CLOSED_MAILBOX+ ":", LoggingMessage.ANSI_GREEN);
+//                String toClient = sc.nextLine();
+//                LoggingMessage.printProgress("ENCRYPTING DATA ...", LoggingMessage.CLOSED_LOCK_WITH_KEY);
+//                server.encryptMessage(toClient);
+//            }
         } catch (Exception e){
             sc.close();
             e.printStackTrace();
@@ -96,16 +100,21 @@ public class TerminalApplication implements ActionListener, ServerResponse {
 
     @Override
     public void showDecryptedMessage(String decryptedMessage) {
-        LoggingMessage.printColoredText("Decrypted Data: " + decryptedMessage, LoggingMessage.ANSI_BLUE);
+        LoggingMessage.printColoredText("Decrypted Query: " + decryptedMessage, LoggingMessage.ANSI_BLUE);
+        // forward client query to google api
+        String result = HttpRequests.getQuery(decryptedMessage);
+        server.encryptMessage("query@@"+result);
+
+
     }
 
     @Override
     public void showEncryptedMessage(String encryptedData) {
-        LoggingMessage.printColoredText("Encrypted Data: " + encryptedData, LoggingMessage.ANSI_GREEN);
+        LoggingMessage.printColoredText("Encrypted Query Result: " + encryptedData, LoggingMessage.ANSI_GREEN);
         // send encrypted data to client
-        LoggingMessage.printProgress("Sending Data to client ...", LoggingMessage.PACKAGE);
-        server.sendData(encryptedData);
-        LoggingMessage.printOutStream("Server Data to client");
+        LoggingMessage.printProgress("Sending Query Result to client ...", LoggingMessage.PACKAGE);
+        server.sendData("queryResult##"+encryptedData);
+        LoggingMessage.printOutStream("Server Response sent to client");
 
     }
 }
